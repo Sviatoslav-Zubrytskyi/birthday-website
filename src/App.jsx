@@ -1,11 +1,11 @@
 import './App.css';
-import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+import confetti from 'canvas-confetti';
 import balloon from './baloon.png'
 import giftBox from './1.png'
 import giftCover from './2.png'
 import {useState} from "react";
 import { createPortal } from 'react-dom';
-import ModalContent from './ModalContent.js';
+import ModalContent from './ModalContent.jsx';
 import 'reactjs-popup/dist/index.css';
 
 function App() {
