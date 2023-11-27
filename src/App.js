@@ -1,23 +1,48 @@
 import './App.css';
 import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 import balloon from './baloon.png'
-function App() {
-    const makeConfetti = confetti();
-    window.onload = makeConfetti;
-    return (
-        <div className="cantainer">
-            <div className="balloons">
-                <span style={{ "--i": 15 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 20 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 23 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 9 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 13 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 11 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 17 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 19 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
-                <span style={{ "--i": 30 }}><img className="bg-balloon" src={balloon} alt="balloon"/></span>
+import giftBox from './1.png'
+import giftCover from './2.png'
+import {useState} from "react";
+import { createPortal } from 'react-dom';
+import ModalContent from './ModalContent.js';
+import 'reactjs-popup/dist/index.css';
 
+function App() {
+    const [coverAnimate, setCoverAnimate] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    //const [popUpExists, setPopUpExists] = useState(false)
+    const revealGift = () => {
+        setShowModal(true)
+        confetti();
+        setCoverAnimate("spin-animation")
+        //setPopUpExists(true);
+    }
+    const randomValue = () => {
+        return Math.floor(Math.random() * 20 + 10);
+    }
+
+    return (
+        <div className="container">
+            <div className="balloons">
+                {
+                    Array.from({length: 15}, (_, index) => (
+                        <span style={{"--i": randomValue()}} key={index}>
+                            <img className="bg-balloon" src={balloon} alt="balloon"/>
+                        </span>
+                    ))
+                }
             </div>
+
+            <div className="gift" onClick={revealGift}>
+                <img src={giftCover} alt="cover" className={"gift-cover " + coverAnimate} id="cover"/>
+                <img src={giftBox} alt="box" className="gift-box"/>
+            </div>
+
+            {showModal && createPortal(
+                <ModalContent onClose={() => setShowModal(false)} />,
+                document.querySelector(".container")
+            )}
         </div>
     );
 }

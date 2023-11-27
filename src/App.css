@@ -5,6 +5,7 @@
 }
 
 body {
+    font-family: 'Georgia', serif;
     min-height: 100vh;
 }
 
@@ -20,6 +21,7 @@ body {
 }
 
 .balloons span {
+    --i: 0;
     position: relative;
     width: 30px;
     height: 30px;
@@ -39,5 +41,37 @@ body {
     }
     100% {
         transform: translateY(-10vh) scale(1);
+    }
+}
+.gift {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0%;
+    transform: translate(50%, 50%);
+    z-index: 2;
+    width:200px;
+    height: 280px;
+    cursor: pointer;
+}
+.gift-cover {
+    height: 80px;
+    object-fit: cover;
+    object-position: 0 100%;
+}
+@keyframes spin {
+100% {
+    transform: rotate(45deg)
+}
+
+}
+.spin-animation {
+    animation:spin 1s linear, shift 1s linear;
+    animation-fill-mode: forwards ;
+}
+
+@keyframes shift {
+    100% {
+        transform: translateX(-30%)
     }
 }
